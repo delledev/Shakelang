@@ -1,0 +1,20 @@
+{
+    "name": "shakelang",
+    "version": "1.0.0",
+    "description": "A functional programming language with object supports. With poem like syntax using old shakespeare English.",
+    "main": "main.ts",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "deno run -a main.ts"
+    },
+    "author": "delledev",
+    "license": "MIT",
+    "dependencies": {
+        "prettier": "^3.2.5"
+    },
+    "lint-staged": {
+        "**/*": "prettier --write --ignore-unknown"
+    }
+}
