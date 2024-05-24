@@ -10,6 +10,7 @@ import {
     ProgramNode,
     Property,
     Statement,
+    StringLiteral,
     VariableDeclaration,
 } from "../ast/astTypes.ts";
 import { Token, TokenType } from "../lexer/def.ts";
@@ -182,7 +183,11 @@ export default class Parser {
                     kind: "NumericLiteral",
                     value: parseFloat(this.eat().value),
                 } as NumericLiteral;
-
+            case TokenType.StringLiteral:
+                return {
+                    kind: "StringLiteral",
+                    value: this.eat().value,
+                } as StringLiteral;
             case TokenType.OpenParen: {
                 this.eat();
                 const val = this.parseExpression();

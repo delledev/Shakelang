@@ -11,10 +11,10 @@
     },
     "author": "delledev",
     "license": "MIT",
-    "dependencies": {
-        "prettier": "^3.2.5"
-    },
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
+    },
+    "devDependencies": {
+        "prettier": "3.2.5"
     }
 }

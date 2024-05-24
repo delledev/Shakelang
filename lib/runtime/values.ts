@@ -3,6 +3,7 @@ import Environment from "./environment.ts";
 export type ValueType =
     | "null"
     | "number"
+    | "string"
     | "boolean"
     | "object"
     | "nativeFunction";
@@ -18,6 +19,10 @@ export interface NullValue extends RuntimeValue {
 export interface NumberValue extends RuntimeValue {
     type: "number";
     value: number;
+}
+export interface StringValue extends RuntimeValue {
+    type: "string";
+    value: string;
 }
 export interface BooleanValue extends RuntimeValue {
     type: "boolean";

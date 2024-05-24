@@ -19,3 +19,17 @@ export const skippables = [" ", "\n", "\t", "\r"];
 export function isSkippable(str: string): boolean {
     return skippables.includes(str);
 }
+
+//TODO: Bad practice.
+export function isNewLine(str: string): boolean {
+    if (str.includes("\r")) {
+        return true;
+    }
+    if (str.includes("\n")) {
+        return true;
+    }
+    if (str.includes("\r\n")) {
+        return true;
+    }
+    return false;
+}

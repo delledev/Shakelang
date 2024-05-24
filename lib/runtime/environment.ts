@@ -1,26 +1,24 @@
+import { print } from "./internal.ts";
 import {
     MakeBoolean,
     MakeNativeFunction,
     MakeNull,
     NumberValue,
     RuntimeValue,
+    StringValue,
 } from "./values.ts";
 
 export function createGlobalEnv() {
     const env = new Environment();
-    env.declareVar("true", MakeBoolean(true), true);
-    env.declareVar("false", MakeBoolean(false), true);
-    env.declareVar("null", MakeNull(), true);
+    env.declareVar("aye", MakeBoolean(true), true);
+    env.declareVar("nay", MakeBoolean(false), true);
+    env.declareVar("nonexistant", MakeNull(), true);
 
     //Native built-in functions
-    env.declareVar(
-        "print",
-        MakeNativeFunction((args, _scope) => {
-            console.log(...args);
-            return MakeNull();
-        }),
-        true,
-    );
+    env.declareVar("speaketh", MakeNativeFunction(print), true);
+    env.declareVar("Speaketh", MakeNativeFunction(print), true);
+    env.declareVar("reveal", MakeNativeFunction(print), true);
+    env.declareVar("Reveal", MakeNativeFunction(print), true);
     return env;
 }
 

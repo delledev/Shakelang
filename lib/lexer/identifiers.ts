@@ -2,24 +2,25 @@ import { TokenType } from "./def.ts";
 
 export const KEYWORDS: Record<number, string[]> = {
     [TokenType.Identifier]: [],
-    [TokenType.Equals]: ["equals"],
+    [TokenType.Equals]: ["be"],
     [TokenType.Number]: [],
     [TokenType.BinaryOperator]: [],
     [TokenType.StringLiteral]: [],
-    [TokenType.Let]: ["let"],
-    [TokenType.Const]: ["const"],
-    [TokenType.OpenParen]: ["openp"],
-    [TokenType.CloseParen]: ["closep"],
-    [TokenType.Semicolon]: ["semicolon"],
-    [TokenType.Comma]: ["comma"],
-    [TokenType.Colon]: ["colon"],
-    [TokenType.OpenBrace]: ["openbc"],
-    [TokenType.CloseBrace]: ["closebc"],
+    [TokenType.Quote]: ["utter", "quote", '"'],
+    [TokenType.Let]: ["proclaim", "declare"],
+    [TokenType.Const]: ["eternal", "immutable"],
+    [TokenType.OpenParen]: ["begins", "beginning"],
+    [TokenType.CloseParen]: ["ends", "perchance"],
+    [TokenType.Semicolon]: ["pause"],
+    [TokenType.Comma]: ["break"],
+    [TokenType.Colon]: ["continueth"],
+    [TokenType.OpenBrace]: ["commence"],
+    [TokenType.CloseBrace]: ["conclude"],
     [TokenType.OpenBracket]: ["openbk"],
     [TokenType.CloseBracket]: ["closebk"],
-    [TokenType.Dot]: ["dot"],
+    [TokenType.Dot]: ["hereby"],
 };
-export const KEYWORDS_LEN = 17;
+export const KEYWORDS_LEN = 18;
 
 export function identifyType(val: string): TokenType | null {
     if (checkOpenParen(val)) {
@@ -52,7 +53,7 @@ function checkEquals(val: string): boolean {
     return equals.includes(val);
 }
 
-function checkSemiColon(val: string): boolean {
+function _checkSemiColon(val: string): boolean {
     const semiColons = [";"];
     return semiColons.includes(val);
 }

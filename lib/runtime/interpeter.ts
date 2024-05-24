@@ -7,6 +7,7 @@ import {
     ObjectLiteral,
     ProgramNode,
     Statement,
+    StringLiteral,
     VariableDeclaration,
 } from "../ast/astTypes.ts";
 import Environment from "./environment.ts";
@@ -21,7 +22,7 @@ import {
     evaluateProgram,
     evaluateVariableDeclaration,
 } from "./evaluation/statements.ts";
-import { NumberValue, RuntimeValue } from "./values.ts";
+import { NumberValue, RuntimeValue, StringValue } from "./values.ts";
 
 export function evalNode(astNode: Statement, env: Environment): RuntimeValue {
     switch (astNode.kind) {
@@ -30,6 +31,11 @@ export function evalNode(astNode: Statement, env: Environment): RuntimeValue {
                 value: (astNode as NumericLiteral).value,
                 type: "number",
             } as NumberValue;
+        case "StringLiteral":
+            return {
+                value: (astNode as StringLiteral).value,
+                type: "string",
+            } as StringValue;
         case "Identifier":
             return evaluateIdentifier(astNode as Identifier, env);
         case "ObjectLiteral":

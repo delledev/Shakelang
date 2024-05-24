@@ -7,6 +7,7 @@ export enum TokenType {
     Const,
     Let,
     OpenParen,
+    Quote,
     Comma,
     Colon,
     OpenBrace,
