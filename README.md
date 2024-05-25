@@ -95,15 +95,15 @@ Prompt: `bid`, `enquire`
 
 ### Basic Rules
 
-Comments: '//' is used to write single line comments.
+`Comments:` '//' is used to write single line comments.
 
-Variables: Variables may be declared but it is not necessary. You can assing values to variables without declaring them.
+`Variables:` Variables may be declared but it is not necessary. You can assing values to variables without declaring them.
 
-Identifiers: Any word not recognized as a keyword is treated as an identifier.
+`Identifiers:` Any word not recognized as a keyword is treated as an identifier.
 
-Trailing Identifiers: Identifiers can have trailing words.
+`Trailing Identifiers:` Identifiers can have trailing words.
 
-Strings: Must start with a quote token but can end with a newline.
+`Strings:` Must start with a quote token but can end with a newline.
 
 ### Syntax Examples
 
