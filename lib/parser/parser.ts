@@ -44,13 +44,7 @@ export default class Parser {
     private expect(type: TokenType, err: string) {
         const prevTok = this.eat();
         if (!prevTok || prevTok.type != type) {
-            console.error(
-                "Parser Error: \n",
-                err,
-                prevTok,
-                "- Expected: ",
-                type,
-            );
+            console.error("Parser Error: \n", err, prevTok, "- Expected: ", type);
             Deno.exit(1);
         }
         return prevTok;
@@ -77,10 +71,7 @@ export default class Parser {
         this.eat();
         const properties = new Array<Property>();
         while (this.notEOF() && this.at().type != TokenType.CloseBrace) {
-            const key = this.expect(
-                TokenType.Identifier,
-                "Object literal key expected.",
-            ).value;
+            const key = this.expect(TokenType.Identifier, "Object literal key expected.").value;
             if (this.at().type == TokenType.Comma) {
                 this.eat();
                 properties.push({
@@ -96,10 +87,7 @@ export default class Parser {
                 continue;
             }
 
-            this.expect(
-                TokenType.Colon,
-                "Missing colon following an identifier in Object Expression.",
-            );
+            this.expect(TokenType.Colon, "Missing colon following an identifier in Object Expression.");
             const value = this.parseExpression();
             properties.push({
                 value,
@@ -107,17 +95,11 @@ export default class Parser {
                 key,
             } as Property);
             if (this.at().type != TokenType.CloseBrace) {
-                this.expect(
-                    TokenType.Comma,
-                    "Expected comma or closing bracket token following property.",
-                );
+                this.expect(TokenType.Comma, "Expected comma or closing bracket token following property.");
             }
         }
 
-        this.expect(
-            TokenType.CloseBrace,
-            "Object literal is missing a closing brace.",
-        );
+        this.expect(TokenType.CloseBrace, "Object literal is missing a closing brace.");
         return {
             kind: "ObjectLiteral",
             properties,
@@ -191,27 +173,17 @@ export default class Parser {
             case TokenType.OpenParen: {
                 this.eat();
                 const val = this.parseExpression();
-                this.expect(
-                    TokenType.CloseParen,
-                    "Unexpected token found inside parenthesis. Expected closed parenthesis.",
-                );
+                this.expect(TokenType.CloseParen, "Unexpected token found inside parenthesis. Expected closed parenthesis.");
                 return val;
             }
             default:
-                console.error(
-                    "Unexpected token found during parsing.",
-                    this.at(),
-                    this.tokens,
-                );
+                console.error("Unexpected token found during parsing.", this.at(), this.tokens);
                 Deno.exit(1);
         }
     }
     private parseVaribleDeclaration(): Statement {
         const isConst = this.eat().type == TokenType.Const;
-        const identifier = this.expect(
-            TokenType.Identifier,
-            "Expected identifier name.",
-        ).value;
+        const identifier = this.expect(TokenType.Identifier, "Expected identifier name.").value;
 
         if (this.at().type == TokenType.Semicolon) {
             this.eat();
@@ -225,10 +197,7 @@ export default class Parser {
             } as VariableDeclaration;
         }
 
-        this.expect(
-            TokenType.Equals,
-            "Expected equals identifier in variable declaration.",
-        );
+        this.expect(TokenType.Equals, "Expected equals identifier in variable declaration.");
         const declaration = {
             kind: "VariableDeclaration",
             value: this.parseExpression(),
@@ -260,13 +229,9 @@ export default class Parser {
     }
     private parseArgs(): Expression[] {
         this.expect(TokenType.OpenParen, "Expected open parenthesis."); // Possibly redundant
-        const args =
-            this.at().type == TokenType.CloseParen ? [] : this.parseArgsList();
+        const args = this.at().type == TokenType.CloseParen ? [] : this.parseArgsList();
 
-        this.expect(
-            TokenType.CloseParen,
-            "Missing closing parenthesis after function call.",
-        );
+        this.expect(TokenType.CloseParen, "Missing closing parenthesis after function call.");
         return args;
     }
     private parseArgsList(): Expression[] {
@@ -279,10 +244,7 @@ export default class Parser {
     private parseMemberExpression(): Expression {
         let object = this.parsePrimaryExpression();
 
-        while (
-            this.at().type == TokenType.Dot ||
-            this.at().type == TokenType.OpenBracket
-        ) {
+        while (this.at().type == TokenType.Dot || this.at().type == TokenType.OpenBracket) {
             const operator = this.eat();
             let property: Expression;
             let computed: boolean;
@@ -297,10 +259,7 @@ export default class Parser {
                 //Member chaining
                 computed = true;
                 property = this.parseExpression();
-                this.expect(
-                    TokenType.CloseBrace,
-                    "Missing closing bracket in computed value.",
-                );
+                this.expect(TokenType.CloseBrace, "Missing closing bracket in computed value.");
             }
             object = {
                 kind: "MemberExpression",

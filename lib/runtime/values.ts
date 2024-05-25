@@ -1,12 +1,6 @@
 import Environment from "./environment.ts";
 
-export type ValueType =
-    | "null"
-    | "number"
-    | "string"
-    | "boolean"
-    | "object"
-    | "nativeFunction";
+export type ValueType = "null" | "number" | "string" | "boolean" | "object" | "nativeFunction";
 
 export interface RuntimeValue {
     type: ValueType;
@@ -34,10 +28,7 @@ export interface ObjectValue extends RuntimeValue {
     properties: Map<string, RuntimeValue>;
 }
 
-export type FunctionCall = (
-    args: RuntimeValue[],
-    env: Environment,
-) => RuntimeValue;
+export type FunctionCall = (args: RuntimeValue[], env: Environment) => RuntimeValue;
 
 export interface NativeFunctionValue extends RuntimeValue {
     type: "nativeFunction";

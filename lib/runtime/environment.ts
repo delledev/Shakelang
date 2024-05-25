@@ -1,12 +1,5 @@
-import { print } from "./internal.ts";
-import {
-    MakeBoolean,
-    MakeNativeFunction,
-    MakeNull,
-    NumberValue,
-    RuntimeValue,
-    StringValue,
-} from "./values.ts";
+import { _prompt, print } from "./internal.ts";
+import { MakeBoolean, MakeNativeFunction, MakeNull, NumberValue, RuntimeValue } from "./values.ts";
 
 export function createGlobalEnv() {
     const env = new Environment();
@@ -19,6 +12,10 @@ export function createGlobalEnv() {
     env.declareVar("Speaketh", MakeNativeFunction(print), true);
     env.declareVar("reveal", MakeNativeFunction(print), true);
     env.declareVar("Reveal", MakeNativeFunction(print), true);
+    env.declareVar("Bid", MakeNativeFunction(_prompt), true);
+    env.declareVar("bid", MakeNativeFunction(_prompt), true);
+    env.declareVar("Enquire", MakeNativeFunction(_prompt), true);
+    env.declareVar("enquire", MakeNativeFunction(_prompt), true);
     return env;
 }
 
@@ -33,11 +30,7 @@ export default class Environment {
         this.constants = new Set();
     }
 
-    public declareVar(
-        variableName: string,
-        value: RuntimeValue,
-        constant: boolean,
-    ): RuntimeValue {
+    public declareVar(variableName: string, value: RuntimeValue, constant: boolean): RuntimeValue {
         if (this.variables.has(variableName)) {
             throw `Cannot re-declare already declared variable '${variableName}'.`;
         }

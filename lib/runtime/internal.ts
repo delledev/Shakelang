@@ -1,5 +1,5 @@
 import Environment from "./environment.ts";
-import { MakeNull, NumberValue, RuntimeValue, StringValue } from "./values.ts";
+import { BooleanValue, MakeNull, NumberValue, RuntimeValue, StringValue } from "./values.ts";
 
 export function print(args: RuntimeValue[], _env: Environment) {
     let result = "";
@@ -12,10 +12,22 @@ export function print(args: RuntimeValue[], _env: Environment) {
             case "number":
                 result += ` ${(value as NumberValue).value}`;
                 break;
+            case "boolean":
+                result += ` ${(value as BooleanValue).value ? "True" : "False"}`;
+                break;
             default:
                 result += ` ${JSON.stringify(value)}`;
         }
     }
     console.log(result);
     return MakeNull();
+}
+
+export function _prompt(args: RuntimeValue[], _env: Environment): RuntimeValue {
+    const ans = prompt((args[0] as StringValue).value);
+
+    return {
+        type: "string",
+        value: ans,
+    } as StringValue;
 }

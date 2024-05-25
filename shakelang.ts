@@ -1,18 +1,20 @@
 import Parser from "./lib/parser/parser.ts";
-import Environment, { createGlobalEnv } from "./lib/runtime/environment.ts";
+import { createGlobalEnv } from "./lib/runtime/environment.ts";
 import { evaluateProgram } from "./lib/runtime/evaluation/statements.ts";
 import { evalNode } from "./lib/runtime/interpeter.ts";
 
-//repl()
-run("./test.shake");
+if (Deno.args.length > 0) {
+    runFile(Deno.args[0]);
+} else {
+    repl();
+}
 
-async function run(filename: string) {
+async function runFile(filename: string) {
     const parser = new Parser();
     const env = createGlobalEnv();
     const input = await Deno.readTextFile(filename);
     const program = parser.produceAST(input);
-    const result = evaluateProgram(program, env);
-    //console.log(result);
+    const _result = evaluateProgram(program, env);
 }
 
 function repl() {
@@ -26,7 +28,6 @@ function repl() {
         }
 
         const program = parser.produceAST(input);
-        const result = evalNode(program, env);
-        console.log(result);
+        const _result = evalNode(program, env);
     }
 }

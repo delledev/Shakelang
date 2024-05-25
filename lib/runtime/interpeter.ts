@@ -1,27 +1,7 @@
-import {
-    AssignmentExpression,
-    BinaryExpression,
-    CallExpression,
-    Identifier,
-    NumericLiteral,
-    ObjectLiteral,
-    ProgramNode,
-    Statement,
-    StringLiteral,
-    VariableDeclaration,
-} from "../ast/astTypes.ts";
+import { AssignmentExpression, BinaryExpression, CallExpression, Identifier, NumericLiteral, ObjectLiteral, ProgramNode, Statement, StringLiteral, VariableDeclaration } from "../ast/astTypes.ts";
 import Environment from "./environment.ts";
-import {
-    evaluateAssignment,
-    evaluateBinaryExpression,
-    evaluateCallExpression,
-    evaluateIdentifier,
-    evaluateObject,
-} from "./evaluation/expressions.ts";
-import {
-    evaluateProgram,
-    evaluateVariableDeclaration,
-} from "./evaluation/statements.ts";
+import { evaluateAssignment, evaluateBinaryExpression, evaluateCallExpression, evaluateIdentifier, evaluateObject } from "./evaluation/expressions.ts";
+import { evaluateProgram, evaluateVariableDeclaration } from "./evaluation/statements.ts";
 import { NumberValue, RuntimeValue, StringValue } from "./values.ts";
 
 export function evalNode(astNode: Statement, env: Environment): RuntimeValue {
@@ -49,10 +29,7 @@ export function evalNode(astNode: Statement, env: Environment): RuntimeValue {
         case "ProgramNode":
             return evaluateProgram(astNode as ProgramNode, env);
         case "VariableDeclaration":
-            return evaluateVariableDeclaration(
-                astNode as VariableDeclaration,
-                env,
-            );
+            return evaluateVariableDeclaration(astNode as VariableDeclaration, env);
         default:
             console.error("Cannot interpret this ast node yet.", astNode);
             Deno.exit(0);

@@ -71,13 +71,7 @@ export function tokenize(sourceString: string): Token[] {
                         const currentWords: string[] = [];
                         let word = "";
                         srcArray.shift(); //Remove the extra space
-                        while (
-                            srcArray.length > 0 &&
-                            !KEYWORDS[TokenType.Quote].includes(
-                                word.toLowerCase(),
-                            ) &&
-                            srcArray[0] != "\r"
-                        ) {
+                        while (srcArray.length > 0 && !KEYWORDS[TokenType.Quote].includes(word.toLowerCase()) && srcArray[0] != "\r") {
                             const letter = srcArray.shift();
                             word += letter;
                             if (letter == " ") {
@@ -85,14 +79,10 @@ export function tokenize(sourceString: string): Token[] {
                                 word = "";
                             }
                         }
-                        if (
-                            !KEYWORDS[TokenType.Quote].includes(
-                                currentWords[
-                                    currentWords.length - 1
-                                ].toLowerCase(),
-                            )
-                        ) {
+                        if (!KEYWORDS[TokenType.Quote].includes(word)) {
                             currentWords.push(word);
+                        } else {
+                            currentWords[currentWords.length - 1] = currentWords[currentWords.length - 1].substring(0, currentWords[currentWords.length - 1].length - 1);
                         }
                         const strValue = currentWords.join("");
                         tokens.push(token(strValue, TokenType.StringLiteral));
@@ -102,9 +92,7 @@ export function tokenize(sourceString: string): Token[] {
                 } else if (isSkippable(srcArray[0])) {
                     srcArray.shift();
                 } else {
-                    console.error(
-                        `Unrecognized character found at ${location[0]}:${location[1]}, "${srcArray[0]}"`,
-                    );
+                    console.error(`Unrecognized character found at ${location[0]}:${location[1]}, "${srcArray[0]}"`);
                     Deno.exit(1);
                 }
                 break;
