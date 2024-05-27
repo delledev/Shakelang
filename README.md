@@ -30,7 +30,7 @@ Make sure you have installed the dependencies:
 To get started with ShakespeareLang, clone the repository:
 
 ```sh
-git clone https://github.com/yourusername/ShakespeareLang.git
+git clone https://github.com/delledev/ShakespeareLang.git
 cd ShakespeareLang
 npm i
 ```
